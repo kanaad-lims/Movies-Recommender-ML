@@ -5,7 +5,7 @@ import requests
 
 #Function to fetch the movie posters
 def fetch_poster(movie_id):
-    response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=<<your_api_key>>=en-US'.format(movie_id))
+    response = requests.get('https://api.themoviedb.org/3/movie/{}?api_key=<<your_api_key>>&language=en-US'.format(movie_id))
     data = response.json()
     return "https://image.tmdb.org/t/p/w500/" + data['poster_path']
 
@@ -35,6 +35,8 @@ st.title('Movie Recommender System')
 selected_movie_name = st.selectbox("Select your Movie option", movies['title'].values)
 
 if st.button("Recommend Movies"):
+    st.write("You Selected:", selected_movie_name)
+    st.write("Here are the Movie Recommendations:")
     names,posters = recommend(selected_movie_name)
 
     col1, col2, col3, col4, col5 = st.columns(5)
@@ -58,5 +60,8 @@ if st.button("Recommend Movies"):
     with col5:
         st.text(names[4])
         st.image(posters[4])
+
+
+
 
 
